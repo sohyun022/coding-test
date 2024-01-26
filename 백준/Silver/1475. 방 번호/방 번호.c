@@ -4,6 +4,7 @@ void fill(int* a){
     for(int i=0;i<10;i++){
         a[i]++;
     }
+    a[6]++; a[9]++;
 }
 int main() {
     int n; //다솜이 방 번호
@@ -15,25 +16,12 @@ int main() {
 
     while (1) {
         if (n % 10 == 6 || n % 10 == 9) {
-            if (n % 10 == 6 && set[6] == 0) {
-                if (set[9] != 0) set[9]--;
-                else {
-                    fill(set);
-                    count++;
-                    set[6]--;
-                }
+            if(set[n%10]==0){
+                fill(set);
+                count++;
             }
+            set[6]--; set[9]--;
 
-            else if (n % 10 == 9 && set[9] == 0) {
-                if (set[6] != 0) set[6]--;
-                else {
-                    fill(set);
-                    count++;
-                    set[9]--;
-                }
-            }
-            else
-                set[n%10]--;
         }
 
         else {
