@@ -1,5 +1,5 @@
 #include <stdio.h>
-
+#include <string.h>
 void fill(int* a){
     for(int i=0;i<10;i++){
         a[i]++;
@@ -7,35 +7,25 @@ void fill(int* a){
     a[6]++; a[9]++;
 }
 int main() {
-    int n; //다솜이 방 번호
-    scanf("%d", &n);
+    char n[8]; //다솜이 방 번호
+    scanf("%s", n);
     int set[10] = {};
     int count = 1; //세트 개수
-
     fill(set); //세트 채우기
+    int l=strlen(n);
 
-    while (1) {
-        if (n % 10 == 6 || n % 10 == 9) {
-            if(set[n%10]==0){
-                fill(set);
-                count++;
-            }
-            set[6]--; set[9]--;
-
+    for(int i=0;i<l;i++){
+        if(set[n[i]-'0']==0){
+            fill(set);
+            count++;
         }
 
-        else {
-            if (set[n % 10] != 0) {
-                set[n % 10]--;
-            }
-            else{
-                fill(set);
-                count++;
-                set[n % 10]--;
-            }
+        if(n[i]=='6'||n[i]=='9'){
+            set[6]--;
+            set[9]--;
         }
-        if(n/10==0) break;
-        n/=10;
+        else
+            set[n[i]-'0']--;
     }
     printf("%d",count);
 }
