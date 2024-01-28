@@ -3,28 +3,17 @@
 int main() {
     int n;
     scanf("%d",&n);
-    int count;
+    int count=0;
+    while(n%5!=0&&n>=3){
+        n-=3;
+        count++;
 
-    if(n/5<=0){
-        if(n/3>0&&n%3==0)
-            count=n/3;
-        else count=-1;
     }
-    else{
-        int i=0;
-        while(1){
-            if((n-(n/5-i)*5)%3==0){
-                count=n/5-i+(n-(n/5-i)*5)/3;
-                break;
-            }
-            i++;
-            if(n/5-i<0) {
-                count=-1;
-                break;}
+    if(n%5!=0)
+        count=-1;
+    else
+        count+=n/5;
 
-        }
-    }
     printf("%d",count);
-
 
 }
