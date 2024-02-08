@@ -4,52 +4,59 @@ int compare(const void *a,const void *b){
     return *(int *)a-*(int *)b;
 }
 
-int n;
-int num[500000];
-int posi[10000001];
-int nega[10000001];
-
-int bs1(int s){
-    int l =0;
-    int r = n-1;
-    int middle;
-    while(l<=r){
-        middle = (l+r)/2;
-        if(num[middle] < s) l = middle+1;
-        else r = middle-1;
-    }
-    return l;
-}
-
-int bs2(int s){
-    int l =0;
-    int r = n-1;
-    int middle;
-    while(l<=r){
-        middle = (l+r)/2;
-        if(num[middle] <= s) l = middle+1;
-        else r = middle-1;
-    }
-    return l;
-}
-
 int main() {
+    int n;
 
     scanf("%d",&n);
-    for(int i=0;i<n;i++){
-        scanf("%d",&num[i]);
-    }
-    qsort(num,n,sizeof(int),compare);
 
-    int k;
-    scanf("%d",&k);
-    for(int i=0;i<k;i++) {
-        int temp;
-        scanf("%d", &temp);
-        int l = bs1(temp);
-        int r = bs2(temp);
-        int ans = r-l;
-        printf("%d ",ans);
+    int a[n];
+
+    for(int i=0;i<n;i++){
+        scanf("%d",&a[i]);
     }
-    return 0;
+
+    qsort(a,n,sizeof(int),compare);
+
+
+    int *hash_p;
+    int *hash_n;
+    if(a[0]<0&&a[n-1]>0){
+        hash_p=(int*)calloc((10000001),sizeof(int));
+        hash_n=(int*)calloc((10000001),sizeof(int));
+    }
+    else if(a[0]>=0)
+        hash_p=(int*)calloc((a[n-1]+1),sizeof(int));
+    else if(a[n-1]<0)
+        hash_n=(int*)calloc((-a[0]),sizeof(int));
+
+
+
+    for(int i=0;i<n;i++){
+        if(a[i]<0)
+            hash_n[-a[i]]++;
+        else
+            hash_p[a[i]]++;
+    }
+
+    int m;
+    scanf("%d",&m);
+    int b[m];
+    int k[m];
+
+    for(int i=0;i<m;i++){
+        scanf("%d",&b[i]);
+        if(b[i]<0&&b[i]>=a[0])
+            k[i]=hash_n[-b[i]];
+
+        else if(b[i]>=0&&b[i]<=a[n-1])
+            k[i]=hash_p[b[i]];
+
+        else
+            k[i]=0;
+
+    }
+    for(int i=0;i<m;i++){
+        printf("%d ",k[i]);
+    }
 }
+
