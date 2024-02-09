@@ -1,18 +1,36 @@
 #include <stdio.h>
-int hash_p[10000001]={};
-int hash_n[10000001]={};
+#include <stdlib.h>
+int compare(const void *a,const void *b) {
+    return *(int *) a - *(int *) b;
+}
+int bs(const int sorted[],int n,int key){
+    int left=0;
+    int right=n-1;
+    int mid;
+
+    while(left<=right){
+        mid=(left+right)/2;
+        
+        if(sorted[mid]==key)
+            return 1;
+
+        if(sorted[mid]<key)
+            left=mid+1;
+        else
+            right=mid-1;
+    }
+    return 0;
+}
 int main() {
     int n;
-    scanf("%d",&n);
-    int card;
+    scanf("%d", &n);
+    int card[n];
 
     for(int i=0;i<n;i++){
-        scanf("%d",&card);
-        if(card<0)
-            hash_n[-card]=1;
-        else
-            hash_p[card]=1;
+        scanf("%d",&card[i]);
     }
+
+    qsort(card,n,sizeof(int),compare);
 
     int m;
     scanf("%d",&m);
@@ -20,9 +38,6 @@ int main() {
 
     for(int i=0;i<m;i++){
         scanf("%d",&num);
-        if(num<0)
-            printf("%d ",hash_n[-num]==1);
-        else
-            printf("%d ",hash_p[num]==1);
+        printf("%d ",bs(card,n,num));
     }
 }
