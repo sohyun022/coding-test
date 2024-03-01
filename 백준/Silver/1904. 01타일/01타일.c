@@ -12,5 +12,5 @@ int main(){
 
     }
 
-    printf("%lld",dp[n]%15746);
+    printf("%lld",dp[n]);
 }
