@@ -1,3 +1,4 @@
+
 import java.util.Scanner;
 
 public class Main {
@@ -7,25 +8,25 @@ public class Main {
 
         int n = sc.nextInt();
 
-        int[] city = new int[100001];
-        int[] road = new int[100000];
+        long[] city = new long[100001];
+        long[] road = new long[100000];
 
         long cost = 0;
 
         for (int i = 0; i < n - 1; i++) {
-            road[i] = sc.nextInt();
+            road[i] = sc.nextLong();
         }
 
         for (int i = 0; i < n; i++) {
-            city[i] = sc.nextInt();
+            city[i] = sc.nextLong();
         }
 
-        int min = city[0];
+        long min = city[0];
 
-        for (int i = 0; i <= n; i++) {
+        for (int i = 0; i < n; i++) {
             if (city[i] < min)
                 min = city[i];
-            cost += (long)min * road[i];
+            cost += min * road[i];
         }
 
         System.out.println(cost);
