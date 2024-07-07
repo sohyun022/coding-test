@@ -5,8 +5,8 @@ using namespace std;
 
 int n,k;
 
-int visited[200001]={};
-int t[200001]={};
+int visited[100001]={};
+int t[100001]={};
 
 queue<int> q;
 
@@ -29,13 +29,13 @@ void bfs(){
             visited[x-1]=1;
         }
 
-        if(x+1<=200000 && !visited[x+1]){
+        if(x+1<=100000 && !visited[x+1]){
             q.push(x+1);
             t[x+1]=t[x]+1;
             visited[x+1]=1;
         }
 
-        if(x*2<=200000 && !visited[x*2]){
+        if(x*2<=100000 && !visited[x*2]){
             q.push(x*2);
             t[x*2]=t[x]+1;
             visited[x*2]=1;
