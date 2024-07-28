@@ -2,7 +2,6 @@
 #include <cmath>
 #include <vector>
 #include <algorithm>
-#include <climits>
 
 using namespace std;
 
@@ -11,6 +10,9 @@ int n,m;
 vector<long long> arr;
 vector<long long> mintr;
 vector<long long> maxtr;
+
+long long Min;
+long long Max;
 
 void init(long long node, long start, long end) {
 
@@ -26,7 +28,7 @@ void init(long long node, long start, long end) {
     }
 }
 
-void query(long long node, long long start, long long end, long long left, long long right,long long& Min,long long& Max) {
+void query(long long node, long long start, long long end, long long left, long long right) {
 
     if (left > end || right < start) {
         return;
@@ -38,8 +40,8 @@ void query(long long node, long long start, long long end, long long left, long 
         return;
     }
 
-    query( node*2, start, (start+end)/2, left, right,Min,Max);
-    query( node*2+1, (start+end)/2+1, end, left, right,Min,Max);
+    query( node*2, start, (start+end)/2, left, right);
+    query( node*2+1, (start+end)/2+1, end, left, right);
 
 }
 
@@ -69,12 +71,12 @@ void query(long long node, long long start, long long end, long long left, long 
 
     for(int i=0;i<m;i++){
 
-        long long Min = LLONG_MAX;
-        long long Max = LLONG_MIN;
+        Min=1000000000;
+        Max=0;
 
         cin >> a >> b;
 
-        query(1,0,n-1,a-1,b-1,Min,Max);
+        query(1,0,n-1,a-1,b-1);
 
         cout << Min << " ";
         cout << Max << "\n";
