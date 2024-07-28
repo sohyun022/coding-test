@@ -1,6 +1,7 @@
 #include <iostream>
 #include <cmath>
 #include <vector>
+#include <climits>
 #include <algorithm>
 
 using namespace std;
@@ -8,8 +9,9 @@ using namespace std;
 vector <long long> arr;
 vector<long long> tree;
 
-void mktree(long long index,long long start,long long end){
+long long Min;
 
+void mktree(long long index,long long start,long long end){
     if(start==end)
         tree[index]=arr[start];
 
@@ -18,32 +20,20 @@ void mktree(long long index,long long start,long long end){
         mktree(index*2+1,(start+end)/2+1,end);
         tree[index]=min(tree[index*2],tree[index*2+1]);
     }
-
 }
 
-long long query(long long index,long long start,long long end,long long left,long long right){
-
+void query(long long index,long long start,long long end,long long left,long long right){
+    
     if(left > end || right < start)
-        return -1;
+        return;
 
     if(left <= start && right >= end){
-        return tree[index];
+        Min=min(tree[index],Min);
+        return;
     }
 
-    long long lmin = query(index*2, start, (start+end)/2, left, right);
-    long long rmin = query(index*2+1, (start+end)/2+1, end, left, right);
-
-    if (lmin == -1) {
-        return rmin;
-    }
-
-    else if (rmin == -1) {
-        return lmin;
-    }
-
-    else {
-        return min(lmin, rmin);
-    }
+    query(index*2,start,(start+end)/2,left,right);
+    query(index*2+1,(start+end)/2+1,end,left,right);
 
 }
 
@@ -51,7 +41,7 @@ int main() {
 
     ios_base::sync_with_stdio(false);
     cin.tie(nullptr);
-
+    
     int n,m;
     cin >> n >> m;
 
@@ -72,9 +62,13 @@ int main() {
 
     for(int i=0;i<m;i++){
 
+        Min=LLONG_MAX;
+
         cin >> a >> b;
 
-        cout << query(1,0,n-1,a-1,b-1) << "\n";
+        query(1,0,n-1,a-1,b-1);
+
+        cout << Min << "\n";
 
     }
 
