@@ -1,4 +1,5 @@
 #include <iostream>
+#include <cstring>
 
 using namespace std;
 
@@ -7,24 +8,18 @@ int main() {
     ios_base::sync_with_stdio(false);
     cin.tie(nullptr);
 
-    string s;
+    char s[101]="";
     cin >> s;
 
     int total=0;
 
-    string integer={};
+    char * token = strtok(s,",");
 
-    for(char C : s){
-        if(C==','){
-            total+=stoi(integer);
-            integer={};
-        }
-        else
-            integer+=C;
+    while(token != NULL){
+        total += stoi(token);
+        token = strtok(NULL,",");
     }
 
-    total+=stoi(integer);
-
     cout << total;
-    
+
 }
