@@ -12,21 +12,15 @@ vector<int> solution(vector<int> progresses, vector<int> speeds) {
     
     while(i<n){
         int count=0;
-        int days=(100-progresses[i])/speeds[i];
+        int days=(99-progresses[i]+speeds[i])/speeds[i];
         
-        if((100-progresses[i])%speeds[i]!=0)
-            days++;
-        
-    
         while (i < n && progresses[i] + speeds[i] * days >= 100) {
             i++;
             count++;
         }
         
-        answer.push_back(count);
-        
+        answer.push_back(count);  
     }
-    
-    
+
     return answer;
 }
