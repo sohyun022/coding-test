@@ -19,16 +19,12 @@ vector<int> solution(vector<string> operations) {
     vector<int> answer;
     
     int pqsize=0;
-    int min;
-    int max;
     
     for(auto oper: operations){
         if(oper[0]=='I'){
             int a = stoi(oper.substr(2));
             pql.push(a);
             pqg.push(a);
-            min=pqg.top();
-            max=pql.top();
             pqsize++;
             map[a]++;
         }
