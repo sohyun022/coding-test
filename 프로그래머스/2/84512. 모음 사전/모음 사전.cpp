@@ -6,25 +6,31 @@
 
 using namespace std;
 
+vector<string> words;
+
+string vowels ="AEIOU";
+
+void makeWord(string cur){
+    
+    if(cur.size() > 5)
+        return;
+    
+    words.push_back(cur);
+    
+    for( char c : vowels){
+        makeWord(cur+c);
+    } 
+        
+}
+
 int solution(string word) {
     
     int answer=0;
     
-    unordered_map<char,int> vowel;
+    makeWord("");
     
-    vowel['A']=0;
-    vowel['E']=1;
-    vowel['I']=2;
-    vowel['O']=3;
-    vowel['U']=4;
-    
-    int weight[]={781,156,31,6,1};
-    
-    for(int i=0;i<word.size();i++){
-        answer += vowel[word[i]]*weight[i] +1;
-    }
-    
-    return answer;
-    
-    
+    for(int i=0;i<words.size();i++){
+        if(word.compare(words[i])==0)
+            return i;
+    }  
 }
