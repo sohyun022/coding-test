@@ -12,18 +12,14 @@ int solution(vector<vector<int>> sizes) {
         
         sort(size.begin(),size.end()); //길이가 짧은 순으로 정렬
         
-        if(size[0] > first && size[1] > second){
+        if(size[0] > first){
             first = size[0];
+        }
+        
+        if(size[1] > second){
             second = size[1];
         }
         
-        else if(size[0] <= first && size[1] > second){
-            second = size[1];
-        }
-        
-        else if(size[0] > first && size[1] <= second){
-            first = size[0];
-        }
     }
     
     return first*second;
